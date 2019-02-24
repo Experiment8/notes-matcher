@@ -6,11 +6,10 @@
 .selection {
     display: flex;
     position: absolute;
-    top: 0; bottom: 200px;
+    top: 100px; bottom: 200px;
     width: 50vw;
 }
 .note {
-  top: 100px;
   left: 0; right: 50vw;
   align-content: center;
   justify-content: center;
@@ -23,11 +22,12 @@
   align-self: center;
 }
 .selection {
-  bottom: 0;
+  bottom: 200px;
   left: 50vw; right: 0;
-  margin: 0;
+  margin: -.7em 0;
   padding: 0;
   white-space: normal;
+  align-content: center;
   align-items: center;
   justify-content: center;
   list-style: none;
@@ -35,7 +35,7 @@
 }
 .selection > .item {
   display: flex;
-  font-size: 5vw;
+  font-size: 36px;
   line-height: 1em;
   padding: .5em 1em;
   margin: .2em;
