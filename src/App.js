@@ -33,6 +33,21 @@ const checkCorrectness = (selection, note, reverse) => (
     (selection === NOTES[note])
 )
 
+const getItemClasses = (note, selectedNote, correct) => {
+  const classes = [styles.item];
+
+  if (correct !== undefined) {
+    if (note === selectedNote) {
+      if (correct) classes.push(styles.correct);
+      else classes.push(styles.wrong);
+    } else {
+      classes.push(styles.disabled);
+    }
+  }
+
+  return classes.join(' ');
+}
+
 export default class App extends Component {
 
   state = {
@@ -87,6 +102,7 @@ export default class App extends Component {
       disabled,
 
       notes,
+      selectedNote,
 
       rights,
       wrongs
@@ -115,7 +131,7 @@ export default class App extends Component {
           { notes.map((note, idx) => (
             <li
               key={note}
-              className={styles.item}
+              className={getItemClasses(note, selectedNote, correct)}
               onClick={() => {
                 if (!disabled) this.selectAnswer(note)
               }}>
