@@ -5,10 +5,18 @@ import { NOTES } from './config';
 
 import styles from './styles.module.css';
 
-const randomNote = () => {
-  const notes = Object.keys(NOTES);
+const randomNote = reverse => {
+  const notes = getObjectMethod(!reverse)(NOTES);
   return notes[Math.floor((Math.random() * (notes.length - 1)))];
 };
+
+const randomBool = () => (
+  Math.random() >= 0.5
+);
+
+const getObjectMethod = reverse => (
+  reverse ? Object.keys : Object.values
+);
 
 const getCorrectnessClass = correct => {
   const classes = [styles.correctness];
@@ -19,34 +27,50 @@ const getCorrectnessClass = correct => {
   return classes.join(' ');
 }
 
+const checkCorrectness = (selection, note, reverse) => (
+  reverse ?
+    (NOTES[selection] === note) :
+    (selection === NOTES[note])
+)
+
 export default class App extends Component {
 
   state = {
+    notes        : shuffle(Object.values(NOTES)),
     wrongs       : 0,
     rights       : 0,
     disabled     : false,
+    reverse      : false,
     note         : randomNote(),
     selectedNote : undefined,
     correct      : undefined
   }
 
-  selectAnswer = usNote => {
-    const correct = usNote === NOTES[this.state.note];
+  selectAnswer = selection => {
+    const correct = checkCorrectness(
+      selection,
+      this.state.note,
+      this.state.reverse
+    );
 
     const { rights, wrongs } = this.state;
 
     this.setState({
       correct,
       disabled     : true,
-      selectedNote : usNote,
+      selectedNote : selection,
       rights       : correct ? (rights + 1) : rights,
       wrongs       : !correct ? (wrongs + 1) : wrongs
     })
 
     setTimeout(() => {
+      const reverse = randomBool();
+
       this.setState({
+        reverse,
+        notes        : shuffle(getObjectMethod(reverse)(NOTES)),
         disabled     : false,
-        note         : randomNote(),
+        note         : randomNote(reverse),
         selectedNote : undefined,
         correct      : undefined
       })
@@ -61,6 +85,8 @@ export default class App extends Component {
       note,
       correct,
       disabled,
+
+      notes,
 
       rights,
       wrongs
@@ -86,7 +112,7 @@ export default class App extends Component {
         </div>
 
         <ul className={styles.selection}>
-          { shuffle(Object.values(NOTES)).map((usNote, idx) => (
+          { notes.map((usNote, idx) => (
             <li
               className={styles.item}
               onClick={() => {
