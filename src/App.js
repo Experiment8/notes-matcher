@@ -112,13 +112,14 @@ export default class App extends Component {
         </div>
 
         <ul className={styles.selection}>
-          { notes.map((usNote, idx) => (
+          { notes.map((note, idx) => (
             <li
+              key={note}
               className={styles.item}
               onClick={() => {
-                if (!disabled) this.selectAnswer(usNote)
+                if (!disabled) this.selectAnswer(note)
               }}>
-              { usNote }
+              { note }
             </li>
           )) }
         </ul>
