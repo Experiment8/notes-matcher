@@ -7,7 +7,7 @@ import styles from './styles.module.css';
 
 const randomNote = reverse => {
   const notes = getObjectMethod(!reverse)(NOTES);
-  return notes[Math.floor((Math.random() * (notes.length - 1)))];
+  return notes[Math.floor((Math.random() * notes.length))];
 };
 
 const randomBool = () => (
