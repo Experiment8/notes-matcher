@@ -1,3 +1,7 @@
+export const randomBool = () => (
+  Math.random() >= 0.5
+);
+
 export const shuffle = a => {
     var j, x, i;
     for (i = a.length - 1; i > 0; i--) {

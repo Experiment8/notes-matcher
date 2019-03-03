@@ -1,7 +1,3 @@
-.container {
-  position: relative;
-  color: #444;
-}
 .note,
 .selection {
     display: flex;
