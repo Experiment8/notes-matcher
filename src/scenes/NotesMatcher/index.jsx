@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import { shuffle, randomBool } from 'utils';
-import { NOTES } from './config';
+import { NOTES } from 'config';
 
 import styles from './styles.module.css';
 
